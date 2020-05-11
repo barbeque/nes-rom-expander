@@ -38,9 +38,13 @@ target_bytes = [0] * 0x12000 # from SIZE directive
 target_bytes = copy_source(bytes, target_bytes, 0x0, 0x0)
 target_bytes = copy_source(bytes, target_bytes, 0x0, 0x4000)
 target_bytes = copy_source(bytes, target_bytes, 0x0, 0x8000)
-target_bytes = inject_header(target_bytes, [0x10, 0x4E, 0x45, 0x53, 0x1A, 0x04, 0x01, 0x40, 0x40])
+target_bytes = inject_header(target_bytes, [0x4E, 0x45, 0x53, 0x1A, 0x04, 0x01, 0x40, 0x40])
 
 # interpret the SIZE directive
 assert(len(target_bytes) == (0x12000 + 16)), ("ROM (%d bytes) isn't the length I expected after patching!" % len(target_bytes))
 
 print('Expanded.')
+assert(target_bytes[0] == 0x4e), "Must be an iNES header"
+
+with open('The Portopia Serial Murder Case.nes', 'wb') as o:
+    o.write(target_bytes)

@@ -16,7 +16,7 @@ def copy_source(source_bytes, target_bytes, copy_from, copy_to):
     return target_bytes
 
 if len(sys.argv) < 2:
-    print('Usage: {} [ROM to expand]', sys.argv[0])
+    print('Usage: %s [ROM to expand]' % sys.argv[0])
     sys.exit(1)
 
 with open(sys.argv[1]) as f:
